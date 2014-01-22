@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="atlas-parser.js"></script>
+</head>
+<body>	
+	<b>See console output !</b>
+    <script>
+
+
+        var ajaxRequest = new XMLHttpRequest();
+        
+        var atlasJSON;
+        function atlasLoaded() {
+            if (ajaxRequest.readyState === 4) {
+                if (ajaxRequest.status === 200 || window.location.href.indexOf('http') === -1) {
+                    var responseText = ajaxRequest.responseText;
+
+
+
+                    atlasJSON = AtlasParser.parse(responseText);
+					console.log(atlasJSON);
+                }
+            }
+        }
+
+
+        
+        ajaxRequest.onreadystatechange = function () {
+            atlasLoaded();
+        };
+
+        ajaxRequest.open('GET', './data/demo.atlas', true);
+        if (ajaxRequest.overrideMimeType) ajaxRequest.overrideMimeType('application/json');
+        ajaxRequest.send(null);
+    </script>
+</body>
+</html>
